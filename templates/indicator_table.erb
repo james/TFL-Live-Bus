@@ -1,0 +1,8 @@
+<table id="indicator">
+  <% @json["arrivals"].each do |arrival| %>
+  <tr>
+    <td class="number"><%= arrival["routeId"] %></td>
+    <td><%= arrival["estimatedWait"] %></td>
+  </tr>
+  <% end %>
+</table>
