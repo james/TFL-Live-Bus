@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>Bus stop</title>
+	<style type="text/css" media="screen">
+	 body {
+	   background-color:#000;
+	   color:#F00;
+	   font-family: monospace;
+	   font-size:30px;
+	   font-weight:bold;
+	   margin:0 auto;
+	 }
+	 table {
+	   width:100%;
+	 }
+	 tr {
+	   width:50%;
+	 }
+	 td.number {
+	   text-align:right;
+	   padding-right:1em;
+	 }
+	</style>
+</head>
+
+<body>
+  <table>
+  <% @json["arrivals"].each do |arrival| %>
+  <tr>
+    <td class="number"><%= arrival["routeId"] %></td>
+    <td><%= arrival["estimatedWait"] %></td>
+  </tr>
+  <% end %>
+  </table>
+</body>
+</html>
