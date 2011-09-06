@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<title>Bus stop | <%= @stop["name"] if @stop %></title>
-	<style type="text/css" media="screen">
-	 body {
-	   background-color:#000;
-	   color:#F00;
-	   font-family: "Courier New", monospace;
-	   font-size:50px;
-	   font-weight:bold;
-	   margin:0 auto;
-	 }
-	 table {
-	   width:100%;
-	 }
-	 tr {
-	   width:50%;
-	 }
-	 td.number {
-	   text-align:right;
-	   padding-right:1em;
-	 }
-	</style>
-	<script src="/jquery.js" type="text/javascript"></script>
-	<script type="text/javascript" charset="utf-8">
-	 function poll() {
+  <style type="text/css" media="screen">
+   body {
+     background-color:#000;
+     color:#F00;
+     font-family: "Courier New", monospace;
+     font-size:50px;
+     font-weight:bold;
+     margin:0 auto;
+   }
+   table {
+     width:100%;
+   }
+   tr {
+     width:50%;
+   }
+   td.number {
+     text-align:right;
+     padding-right:1em;
+   }
+   p.disclaimer {
+     font-size:10px;
+     text-align:center;
+     color:#333;
+   }
+   p.disclaimer a{
+     color:#333; 
+   }
+  </style>
+  <script src="/jquery.js" type="text/javascript"></script>
+  <script type="text/javascript" charset="utf-8">
+   function poll() {
      $.ajax({
        url: window.location.href+"/partial",
        error: function(xhr_data) {
@@ -42,10 +50,11 @@
    $(document).ready(function() {
      poll()
    });
-	</script>
+  </script>
 </head>
 
 <body>
   <%= erb :indicator_table %>
+  <p class="disclaimer">Data sucked from <a href="http://countdown.tfl.gov.uk/">TFL</a> without permission.</p>
 </body>
 </html>
