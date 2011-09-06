@@ -7,17 +7,21 @@
 <% if @search_results %>
   <ul>
   <% @search_results.each do |result| %>
-    <li>
-      <a href="/stop/<%= result["id"] %>">
-        <%= result["name"] %>
-        <% if result["stopIndicator"] %>
-          (<%= result["stopIndicator"] %>)
+    <% if !result["routes"].empty? %>
+      <li>
+        <a href="/stop/<%= result["id"] %>">
+          <%= result["name"] %>
+          <% if result["stopIndicator"] %>
+            (<%= result["stopIndicator"] %>)
+          <% end %>
+        </a> <br />
+        <% if result["towards"] %>
+          Towards <%= result["towards"].downcase.gsub(/\b\w/){$&.upcase} %>
         <% end %>
-      </a>
-      <% if result["towards"] %>
-        Towards <%= result["towards"].downcase.gsub(/\b\w/){$&.upcase} %>
-      <% end %>
-    </li>
+        <br />
+        <%= result["routes"].collect {|x| x["name"]}.join(", ") %>
+      </li>
+    <% end %>
   <% end %>
   </ul>
 <% end %>
