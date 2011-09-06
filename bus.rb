@@ -25,6 +25,17 @@ get '/stop/:stop_id/partial' do |stop_id|
   erb :indicator_table
 end
 
+get '/stop/:stop_id/curl' do |stop_id|
+  get_stop_json(stop_id)
+  @json["arrivals"].collect{|x| "#{x["routeId"]} | #{x["estimatedWait"]}\n"}
+end
+
+get '/stop/:stop_id/jsonp' do |stop_id|
+  get_stop_json(stop_id)
+  "bus_json(#{@json})"
+end
+
+
 def get_stop_json(stop_id)
   response = Net::HTTP.get(URI.parse("http://countdown.tfl.gov.uk/stopBoard/#{stop_id}/"))
   @json = JSON.parse(response)  
