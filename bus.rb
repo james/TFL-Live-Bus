@@ -31,13 +31,16 @@ get '/stop/:stop_id/curl' do |stop_id|
 end
 
 get '/stop/:stop_id/jsonp' do |stop_id|
-  get_stop_json(stop_id)
   headers 'Content-Type' => "text/javascript"
-  "bus_json(#{@json})"
+  "bus_json(#{make_request(stop_id)})"
 end
 
 
 def get_stop_json(stop_id)
-  response = Net::HTTP.get(URI.parse("http://countdown.tfl.gov.uk/stopBoard/#{stop_id}/"))
+  response = make_request(stop_id)
   @json = JSON.parse(response)  
+end
+
+def make_request(stop_id)
+  Net::HTTP.get(URI.parse("http://countdown.tfl.gov.uk/stopBoard/#{stop_id}/"))
 end
