@@ -1,0 +1,23 @@
+<p>Search for a bus stop name here.</p>
+<form action="/" method="get">
+  <input name="search" type="text" />
+  <input type="submit" value="Search">
+</form>
+
+<% if @search_results %>
+  <ul>
+  <% @search_results.each do |result| %>
+    <li>
+      <a href="/stop/<%= result["id"] %>">
+        <%= result["name"] %>
+        <% if result["stopIndicator"] %>
+          (<%= result["stopIndicator"] %>)
+        <% end %>
+      </a>
+      <% if result["towards"] %>
+        Towards <%= result["towards"].downcase.gsub(/\b\w/){$&.upcase} %>
+      <% end %>
+    </li>
+  <% end %>
+  </ul>
+<% end %>

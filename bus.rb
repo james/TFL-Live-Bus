@@ -5,6 +5,15 @@ require 'erb'
 set :views, File.dirname(__FILE__) + '/templates'
 set :public, File.dirname(__FILE__) + '/static'
 
+STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
+
+get '/' do
+  if params[:search] && params[:search] != ""
+    @search_results = STOPS.select {|x| x["name"] =~ /#{params[:search]}/i}
+  end
+  erb :index
+end
+
 get '/stop/:stop_id' do |stop_id|
   get_stop_json(stop_id)
   erb :stop
