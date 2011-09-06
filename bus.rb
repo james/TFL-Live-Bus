@@ -32,6 +32,7 @@ end
 
 get '/stop/:stop_id/jsonp' do |stop_id|
   get_stop_json(stop_id)
+  headers 'Content-Type' => "text/javascript"
   "bus_json(#{@json})"
 end
 
