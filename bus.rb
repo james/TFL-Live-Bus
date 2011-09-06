@@ -15,6 +15,7 @@ get '/' do
 end
 
 get '/stop/:stop_id' do |stop_id|
+  @stop = STOPS.select {|x| x["id"] =~ /#{stop_id}/i}.first
   get_stop_json(stop_id)
   erb :stop
 end
