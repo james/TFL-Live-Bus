@@ -48,7 +48,7 @@
        },
        success: function(response) {
          $("table#indicator").replaceWith(response);
-         setInterval(function() { poll(); }, 15000);
+         setTimeout(function() { poll(); }, 15000);
        }
      });
    }
