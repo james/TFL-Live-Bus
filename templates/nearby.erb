@@ -1,0 +1,6 @@
+<p>Determining location...</p>
+<script>
+  navigator.geolocation.getCurrentPosition(function(location) {
+    window.location = ("/?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude);
+  });
+</script>

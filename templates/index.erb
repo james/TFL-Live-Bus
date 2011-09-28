@@ -1,4 +1,4 @@
-<p>Search for a bus stop name here.</p>
+<p>Search for a bus stop name here, or try <a href="/nearby">autolocation</a>.</p>
 <form action="/" method="get">
   <input name="search" type="text" />
   <input type="submit" value="Search">
@@ -14,8 +14,9 @@
           <% if result["stopIndicator"] %>
             (<%= result["stopIndicator"] %>)
           <% end %>
-        </a> <br />
+        </a> (<a href="http://maps.google.com/maps?z=16&q=loc:<%= result["lat"]%>+<%= result["lng"]%>">map</a>)
         <% if result["towards"] %>
+        <br />
           Towards <%= result["towards"].downcase.gsub(/\b\w/){$&.upcase} %>
         <% end %>
         <br />

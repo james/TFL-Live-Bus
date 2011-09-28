@@ -10,8 +10,15 @@ STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
 get '/' do
   if params[:search] && params[:search] != ""
     @search_results = STOPS.select {|x| x["name"] =~ /#{params[:search]}/i}
+  elsif params[:lat] && params[:lon] && params[:lat] != "" && params[:lon] != ""
+    @search_results = STOPS.select { |x| approximate_distance_between(x, params) < 0.005 }
+    @search_results.sort_by! { |x| approximate_distance_between(x, params) }
   end
   erb :index
+end
+
+get '/nearby' do
+  erb :nearby
 end
 
 get '/stop/:stop_id' do |stop_id|
@@ -43,4 +50,10 @@ end
 
 def make_request(stop_id)
   Net::HTTP.get(URI.parse("http://countdown.tfl.gov.uk/stopBoard/#{stop_id}/"))
+end
+
+def approximate_distance_between(stop, coords)
+  lat_diff = (stop["lat"].to_f - coords[:lat].to_f).abs
+  lon_diff = (stop["lng"].to_f - coords[:lon].to_f).abs
+  diff = Math.sqrt(lat_diff**2 + lon_diff**2)
 end
