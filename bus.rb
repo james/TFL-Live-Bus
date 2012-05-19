@@ -2,10 +2,16 @@ require 'sinatra'
 require 'net/http'
 require 'json'
 require 'erb'
+require 'cgi'
 set :views, File.dirname(__FILE__) + '/templates'
 set :public, File.dirname(__FILE__) + '/static'
 
 STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
+
+# The part before the docpath is in upper case because
+# that results in a smaller (i.e. fewer pixels) QR code 
+# which is easier to scan
+STOP_URL = 'HTTP://BUS.ABSCOND.ORG/stop'
 
 get '/' do
   if params[:search] && params[:search] != ""
@@ -25,6 +31,21 @@ get '/stop/:stop_id' do |stop_id|
   @stop = STOPS.select {|x| x["id"] =~ /#{stop_id}/i}.first
   get_stop_json(stop_id)
   erb :stop
+end
+
+get '/qr' do 
+  if params[:search] && params[:search] != ""
+    @stop = STOPS.select {|x| x["id"] =~ /#{params[:search]}/i}.first
+  end
+  erb :qr 
+end
+
+get '/qr/:stop_id' do |stop_id|
+  @stop = STOPS.select {|x| x["id"] =~ /#{stop_id}/i}.first
+  url  = [STOP_URL, stop_id].join('/')
+  @qr_img_url = "https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=#{CGI.escape url}"
+
+  erb :qr
 end
 
 get '/stop/:stop_id/partial' do |stop_id|

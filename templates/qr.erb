@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title><%= @stop["name"] if @stop %> Buses Live!</title>
+  <style type="text/css" media="screen,print">
+   body {
+     background-color: white;
+     color: black;
+     font-family: "Courier New", monospace;
+     font-size:30px;
+     font-weight:bold;
+     margin: 50px;
+     text-align:center;
+   }
+   p.disclaimer {
+     font-size:15px;
+     text-align:center;
+     color:#333;
+   }
+   p.disclaimer a{
+     color:#333; 
+   }
+  </style>
+</head>
+
+<body>
+  <% if @stop %>
+
+    <h1>
+      <%= @stop["name"] %>
+      <% if @stop["stopIndicator"] %>
+        (<%= @stop["stopIndicator"] %>)
+      <% end %>
+    </h1>
+
+    <img src="<%= @qr_img_url %>" />
+
+    <p>
+    Scan this code with your phone to see what buses are due next at this stop.
+    </p>
+
+    <p class="disclaimer">
+    This code links to the unofficial http://bus.abscond.org countdown application, which has nothing whatsoever to do with TFL (but it's really useful).
+    </p>
+  <% else %>
+
+    <h1>QR Code</h1>
+    <p>
+    Enter a numeric bus stop identifier to get a printable notice containing a QR code.
+    </p>
+
+    <form action="/qrcode" method="get">
+      <input name="search" type="text" />
+      <input type="submit" value="Print QR code">
+    </form>
+
+    <p>
+    If you had permission to do so, you might want to stick it onto the bus stop so that other
+    people could use it, which would be really cool.
+    </p>
+    <p>
+    But, that's probably not strictly legal, so we don't advise you to do that.
+    </p>
+
+  <% end %>
+</body>
+</html>
