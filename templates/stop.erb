@@ -30,6 +30,14 @@
    p.disclaimer a{
      color:#333; 
    }
+   p.back {
+     font-size:12px;
+     text-align:center;
+     color:#333;
+   }
+   p.back a {
+       color: #ddd;
+   }
   </style>
   <script type="text/javascript" charset="utf-8">
     if(navigator.userAgent.match("Kindle")) {
@@ -60,6 +68,7 @@
 
 <body>
   <%= erb :indicator_table %>
+  <p class="back"><a href="/">Search again</a></p>
   <p class="disclaimer">Data sucked from <a href="http://countdown.tfl.gov.uk/">TFL</a> without permission.</p>
 </body>
 </html>
