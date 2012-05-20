@@ -7,7 +7,8 @@
   <title><% if @search_results %>Search Buses Live!<% else %>Buses Live!<% end %></title>
   <meta name="viewport" content="width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes" />
-<link rel="stylesheet" href="/style.css" type="text/css">
+  <link rel="stylesheet" href="/style.css" type="text/css">
+  <script src="/mobile.js"></script>
 </head>
 
 <p class="instruction">Search for a bus stop name here, or try <a href="/nearby">autolocation</a>.</p>
@@ -48,13 +49,5 @@
   </table>
 <% end %>
 
-<script>
-  // Hide address bar on iOS
-  window.addEventListener("load",function() {
-    setTimeout(function () {
-      window.scrollTo(0, 1);
-    }, 0);
-  });
-</script>
 </body>
 </html>
