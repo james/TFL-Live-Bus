@@ -3,7 +3,7 @@ require 'net/http'
 require 'json'
 require 'erb'
 set :views, File.dirname(__FILE__) + '/templates'
-set :public, File.dirname(__FILE__) + '/static'
+set :public_folder, File.dirname(__FILE__) + '/static'
 
 STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
 
@@ -12,7 +12,7 @@ get '/' do
     @search_results = STOPS.select {|x| x["name"] =~ /#{params[:search]}/i}
   elsif params[:lat] && params[:lon] && params[:lat] != "" && params[:lon] != ""
     @search_results = STOPS.select { |x| approximate_distance_between(x, params) < 0.005 }
-    @search_results.sort_by! { |x| approximate_distance_between(x, params) }
+    @search_results.sort!{ |a, b| approximate_distance_between(a, params) <=> approximate_distance_between(b, params) }
   end
   erb :index
 end

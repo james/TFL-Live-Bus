@@ -5,32 +5,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
   <title><%= @stop["name"] if @stop %> Buses Live!</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <style type="text/css" media="screen">
    body {
      background-color:#000;
      color:#F00;
      font-family: "Courier New", monospace;
-     font-size:50px;
+     font-size:17px;
      font-weight:bold;
-     margin:0 auto;
    }
    table {
-     width:100%;
-   }
-   tr {
-     width:50%;
+     margin:10px auto;
    }
    td.number {
      text-align:right;
      padding-right:1em;
    }
    p.disclaimer {
-     font-size:10px;
+     font-size:12px;
      text-align:center;
      color:#333;
    }
    p.disclaimer a{
      color:#333; 
+   }
+   p.back {
+     font-size:12px;
+     text-align:center;
+     color:#333;
+   }
+   p.back a {
+       color: #ddd;
    }
   </style>
   <script type="text/javascript" charset="utf-8">
@@ -56,11 +62,13 @@
      poll()
    });
   </script>
+  <script src="/mobile.js"></script>
   <link rel="apple-touch-icon" href="http://colour.abscond.org/<%= Digest::MD5.hexdigest(@stop["smsCode"])[0..5] %>.png" />
 </head>
 
 <body>
   <%= erb :indicator_table %>
+  <p class="back"><a href="/">Search again</a></p>
   <p class="disclaimer">Data sucked from <a href="http://countdown.tfl.gov.uk/">TFL</a> without permission.</p>
 </body>
 </html>
