@@ -3,7 +3,7 @@ require 'net/http'
 require 'json'
 require 'erb'
 set :views, File.dirname(__FILE__) + '/templates'
-set :public_folder, File.dirname(__FILE__) + '/static'
+set :public, File.dirname(__FILE__) + '/static'
 
 STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
 
