@@ -1,0 +1,38 @@
+body {
+    font: normal 14px "Helvetica Neue", "Helvetica", "Arial" sans-serif;
+    margin: 0;
+    padding: 0;
+}
+p.instruction {
+    margin: 5px;
+    font-size: 13px;
+}
+form.search {
+    margin: 5px;
+}
+td.stop,
+td.map {
+    vertical-align: top;
+    border-bottom: 1px solid #ddd;
+}
+td.map a {
+    padding: 5px 3px 5px 0;
+    display: block;
+}
+a.stop {
+    padding: 5px 6px 6px 6px;
+    color: #000;
+    display: block;
+    text-decoration: none;
+}
+a.stop span.name {
+    font-weight: bold;
+    font-size: 17px;
+}
+a span.details {
+    color: #000;
+    font-size: 14px;
+}
+a.stop span.direction {
+    color: #36C;
+}

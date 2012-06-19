@@ -1,28 +1,53 @@
-<p>Search for a bus stop name here, or try <a href="/nearby">autolocation</a>.</p>
-<form action="/" method="get">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title><% if @search_results %>Search Buses Live!<% else %>Buses Live!<% end %></title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="/style.css" type="text/css">
+  <script src="/mobile.js"></script>
+</head>
+
+<p class="instruction">Search for a bus stop name here, or try <a href="/nearby">autolocation</a>.</p>
+<form action="/" method="get" class="search">
   <input name="search" type="text" />
   <input type="submit" value="Search">
 </form>
 
 <% if @search_results %>
-  <ul>
+  <table cellspacing="0">
   <% @search_results.each do |result| %>
     <% if !result["routes"].empty? %>
-      <li>
-        <a href="/stop/<%= result["id"] %>">
-          <%= result["name"] %>
-          <% if result["stopIndicator"] %>
-            (<%= result["stopIndicator"] %>)
-          <% end %>
-        </a> (<a href="http://maps.google.com/maps?z=16&q=loc:<%= result["lat"]%>+<%= result["lng"]%>">map</a>)
-        <% if result["towards"] %>
-        <br />
-          Towards <%= result["towards"].downcase.gsub(/\b\w/){$&.upcase} %>
-        <% end %>
-        <br />
-        <%= result["routes"].collect {|x| x["name"]}.join(", ") %>
-      </li>
+      <tr>
+        <td class="stop">
+          <a class="stop" href="/stop/<%= result["id"] %>">
+            <span class="name">
+            <%= result["name"] %>
+            <% if result["stopIndicator"] %>
+              (<%= result["stopIndicator"] %>)
+            <% end %>
+            </span>
+            <span class="details">
+              <% if result["towards"] %>
+              <br />
+                <span class="direction">Towards <%= result["towards"].downcase.gsub(/\b\w/){$&.upcase} %></span>
+              <% end %>
+              <br />
+              <%= result["routes"].collect {|x| x["name"]}.join(", ") %>
+            </span>
+          </a>
+        </td>
+        <td class="map">
+          <a href="http://maps.google.com/maps?z=16&amp;q=loc:<%= result["lat"]%>+<%= result["lng"]%>">map</a>
+        </td>
+      </tr>
     <% end %>
   <% end %>
-  </ul>
+  </table>
 <% end %>
+
+</body>
+</html>
