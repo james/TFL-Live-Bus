@@ -2,6 +2,8 @@ require 'sinatra'
 require 'net/http'
 require 'json'
 require 'erb'
+require "statsmix"
+StatsMix.api_key = "a0661950407c86f45ee5"
 set :views, File.dirname(__FILE__) + '/templates'
 set :public, File.dirname(__FILE__) + '/static'
 
@@ -22,6 +24,7 @@ get '/nearby' do
 end
 
 get '/stop/:stop_id' do |stop_id|
+  StatsMix.track("Bus Stop View")
   @stop = STOPS.select {|x| x["id"] =~ /#{stop_id}/i}.first
   get_stop_json(stop_id)
   erb :stop
