@@ -27,6 +27,11 @@
      text-align:right;
      padding-right:1em;
    }
+   p.stopname {
+     text-align: center;
+     color: #999;
+     font-size:0.5em;
+   }
    p.disclaimer {
      font-size:0.4em;
      text-align:center;
@@ -75,6 +80,9 @@
 
 <body>
   <%= erb :indicator_table %>
+  <% if @stop %>
+      <p class="stopname"><%= @stop["name"] %></p>
+  <% end %>
   <p class="back"><a href="/">Search again</a></p>
   <p class="disclaimer">Data sucked from <a href="http://countdown.tfl.gov.uk/">TFL</a> without permission.</p>
 </body>
