@@ -7,6 +7,10 @@ set :public, File.dirname(__FILE__) + '/static'
 
 STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
 
+get '*' do
+  'The site is broken. Sorry. Hopefully will be up again in a few weeks. <a href="https://github.com/james/TFL-Live-Bus/issues/5">Longer explanation here</a>'
+end
+
 get '/' do
   if params[:search] && params[:search] != ""
     @search_results = STOPS.select {|x| x["name"] =~ /#{params[:search]}/i}
